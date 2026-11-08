@@ -21,21 +21,21 @@
 </section>
 
 <section class="teaser wrap" aria-labelledby="teaser-title">
- <div class="teaser-copy"><p class="kicker">THE IDEA</p><h2 id="teaser-title">Remember what<br>the robot needs<br><em>to see again.</em></h2><p>Future actions tell us where the wrist camera will look next. Mem-World retrieves the past observations that help predict that next view.</p><a href="#method" class="inline-link">How memory works <span aria-hidden="true">↗</span></a></div>
+ <div class="teaser-copy"><p class="kicker">THE IDEA</p><h2 id="teaser-title">Remember what<br> the robot needs<br> <em>to see again.</em></h2><p>Future actions tell us where the wrist camera will look next. Mem-World retrieves the past observations that help predict that next view.</p><a href="#method" class="inline-link">How memory works <span aria-hidden="true">↗</span></a></div>
  <div class="teaser-media"><div class="video-top"><span class="live-dot"></span> A camera leaves. The object should stay.</div><video id="hero-video" class="demo-video" autoplay muted loop playsinline controls preload="metadata" poster="assets/camera-motion-poster.jpg" aria-label="Comparison of real observations, Ctrl-World and Mem-World during camera motion"><source src="assets/camera-motion.mp4" type="video/mp4"></video><p class="media-caption">Real world / Ctrl-World / Mem-World · Watch the black snack when the wrist camera returns.</p></div>
 </section>
 
 <section class="metrics wrap" aria-label="Key results"><div><span class="metric-label">PERSISTENT PREDICTIONS</span><strong>19.21 <small>PSNR</small></strong><p>Wrist view, vs. 17.79 with matched fine-tuning</p></div><div><span class="metric-label">POLICY EVALUATION</span><strong>0.97 <small>Pearson r</small></strong><p>Closer agreement with real-world success</p></div><div><span class="metric-label">POLICY IMPROVEMENT</span><strong>58<span class="metric-arrow">→</span>72<small>%</small></strong><p>Real-world success after synthetic-data fine-tuning</p></div></section>
 
 <section id="motivation" class="section wrap">
- <div class="section-heading"><p class="kicker">01 / MOTIVATION</p><h2>A memory failure can become<br>a policy failure.</h2></div>
+ <div class="section-heading"><p class="kicker">01 / MOTIVATION</p><h2>A memory failure can become<br> a policy failure.</h2></div>
  <div class="prose-columns"><p>World models offer a way to evaluate and improve robot policies with less real-world interaction. They predict what happens after an action, allowing a policy to keep acting on generated observations.</p><p>But robot actions also change what is visible. Occlusions and wrist-camera motion can hide an object for many steps. When a policy returns to it, an inconsistent prediction can turn an otherwise successful action into a simulated failure.</p></div>
  <figure class="paper-figure motivation-figure"><img src="assets/motivation.png" width="1960" height="637" loading="lazy" alt="A black snack keeps its original shape in the real world but becomes distorted in a world-model rollout when the wrist camera returns."><figcaption>The snack remains unchanged in the real world, yet becomes distorted in the imagined rollout.</figcaption></figure>
  <div class="insight"><span class="insight-number">?</span><div><h3>What causes the distortion?</h3><p>An important cause is missing visual context: the object to be generated may not appear in any of the model’s context frames. Recent frames can miss it, and fixed-interval sampling can skip the view that clearly showed it.</p><p class="insight-answer">Retrieve evidence for what the robot is about to see.</p></div></div>
 </section>
 
 <section id="method" class="method-band"><div class="section wrap">
- <div class="section-heading"><p class="kicker">02 / METHOD</p><h2>Let future actions<br>guide visual memory.</h2><p class="section-lead">W-VMem connects historical images to scene surfaces and observation times, then retrieves the evidence needed for the next interaction.</p></div>
+ <div class="section-heading"><p class="kicker">02 / METHOD</p><h2>Let future actions<br> guide visual memory.</h2><p class="section-lead">W-VMem connects historical images to scene surfaces and observation times, then retrieves the evidence needed for the next interaction.</p></div>
  <figure class="paper-figure method-figure"><img src="assets/method.png" width="2864" height="1234" loading="lazy" alt="Mem-World architecture: initialize surfel memory, retrieve historical frames using future camera poses, condition the multi-view world model, and update memory using generated wrist views."><figcaption>Wrist-view-centered 4D surfel memory (W-VMem) + a multi-view action-conditioned world model.</figcaption></figure>
  <nav class="method-jump" aria-label="Method stages"><a href="#memory-initialize"><span>01</span> Initialize memory <span aria-hidden="true">↓</span></a><a href="#memory-retrieve"><span>02</span> Retrieve history <span aria-hidden="true">↓</span></a><a href="#memory-update"><span>03</span> Update memory <span aria-hidden="true">↓</span></a></nav>
  <article id="memory-initialize" class="method-detail">
@@ -61,8 +61,8 @@
 </div></section>
 
 <section id="experiments" class="section wrap">
- <div class="section-heading"><p class="kicker">03 / EXPERIMENTS</p><h2>From consistent predictions<br>to useful imagined interaction.</h2></div>
- <nav class="research-nav" aria-label="Research questions"><a href="#consistency"><span>RQ1</span>Visual consistency</a><a href="#evaluation"><span>RQ2</span>Policy evaluation</a><a href="#improvement"><span>RQ3</span>Policy improvement</a></nav>
+ <div class="section-heading"><p class="kicker">03 / EXPERIMENTS</p><h2>From consistent predictions<br> to useful imagined interaction.</h2></div>
+ <nav class="research-nav" aria-label="Research questions"><a href="#consistency"><span>RQ1</span> Visual consistency</a><a href="#evaluation"><span>RQ2</span> Policy evaluation</a><a href="#improvement"><span>RQ3</span> Policy improvement</a></nav>
  <article id="consistency" class="research-block">
   <div class="rq-heading"><span class="rq-number">RQ1</span><div><h3>Can memory preserve the scene over long rollouts?</h3><p>Occlusion and back-and-forth wrist-camera motion test whether objects remain consistent after leaving view.</p></div></div>
   <div class="evaluation-setup"><b>Replay-based evaluation</b><p>Starting from the real initial observation, we replay recorded robot actions and autoregressively predict future views. Each model receives the same action sequence, and its rollout is compared with the corresponding real observations.</p><div class="setup-facts"><span><b>34</b> challenging DROID trajectories</span><span><b>20</b> autoregressive iterations</span><span><b>20 s</b> per rollout</span></div></div>
@@ -86,7 +86,7 @@
  </article>
 </section>
 
-<section class="takeaway"><div class="wrap"><p class="kicker">TAKEAWAY</p><h2>The next action tells us<br>which past observations matter.</h2><p>Mem-World uses this connection to preserve scene content, evaluate policies more reliably, and generate useful training experience. Multi-view consistency and explicit physical constraints remain open challenges.</p><a class="button" href="https://arxiv.org/abs/2606.18960" target="_blank" rel="noopener">Read the full paper <span aria-hidden="true">↗</span></a></div></section>
+<section class="takeaway"><div class="wrap"><p class="kicker">TAKEAWAY</p><h2>The next action tells us<br> which past observations matter.</h2><p>Mem-World uses this connection to preserve scene content, evaluate policies more reliably, and generate useful training experience. Multi-view consistency and explicit physical constraints remain open challenges.</p><a class="button" href="https://arxiv.org/abs/2606.18960" target="_blank" rel="noopener">Read the full paper <span aria-hidden="true">↗</span></a></div></section>
 
 <section id="citation" class="section wrap citation"><div><p class="kicker">04 / CITATION</p><h2>BibTeX</h2><p>If you find this work useful, please consider citing our paper.</p></div><div class="citation-code"><button id="copy-citation" type="button">Copy BibTeX</button><pre><code id="bibtex">@inproceedings{zheng2026memworld,
   title={Memory-augmented Action-conditioned World Model
